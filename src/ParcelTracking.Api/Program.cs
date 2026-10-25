@@ -28,5 +28,6 @@ app.MapGet("/", () => "Parcel Tracking API");
 app.MapOrderEndpoints();
 app.MapParcelEndpoints();
 app.MapParcelEventEndpoints();
+app.MapWarehouseEndpoints();
 
 app.Run();
