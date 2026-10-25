@@ -1,0 +1,42 @@
+# Run with the VS Code extension "REST Client" (humao.rest-client): click "Send Request".
+# Set the port to the one `dotnet run` prints.
+@baseUrl = http://localhost:5000
+
+### Create an order
+POST {{baseUrl}}/orders
+Content-Type: application/json
+
+{ "customerName": "Elmar" }
+
+### Add a parcel (warehouse 1, bin A)
+POST {{baseUrl}}/orders/1/parcels
+Content-Type: application/json
+
+{ "warehouseId": 1, "binCode": "A" }
+
+### Add a second parcel (bin E)
+POST {{baseUrl}}/orders/1/parcels
+Content-Type: application/json
+
+{ "warehouseId": 1, "binCode": "E" }
+
+### Get the order with its parcels
+GET {{baseUrl}}/orders/1
+
+### Status event (send twice: 201, then 200 with no second change)
+POST {{baseUrl}}/parcels/1/events
+Content-Type: application/json
+
+{ "eventId": "evt-001", "newStatus": "Picked", "occurredAt": "2026-10-25T09:00:00Z" }
+
+### Invalid transition (Picked -> Shipped): 409
+POST {{baseUrl}}/parcels/1/events
+Content-Type: application/json
+
+{ "eventId": "evt-002", "newStatus": "Shipped", "occurredAt": "2026-10-25T09:05:00Z" }
+
+### History
+GET {{baseUrl}}/parcels/1/history
+
+### Pick route for both parcels
+GET {{baseUrl}}/warehouses/1/pick-route?parcelIds=1,2
