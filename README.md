@@ -42,4 +42,4 @@ Authentication, EF Core migrations instead of `EnsureCreated`, Azure App Service
 
 ## About this project
 
-Built to learn C#/.NET after working in Java and C++. I used an AI assistant as a tutor and for drafts; I reviewed and can explain every line.
+Learning project to get started with C#/.NET after working in Java and C++.
